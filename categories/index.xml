@@ -2,10 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Categories on Hayasa17的博客</title>
-        <link>https://example.com/categories/</link>
+        <link>https://hashcode17.github.io/categories/</link>
         <description>Recent content in Categories on Hayasa17的博客</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <copyright>hayasa17</copyright><atom:link href="https://example.com/categories/index.xml" rel="self" type="application/rss+xml" />
+        <copyright>hayasa17</copyright>
+        <lastBuildDate>Sat, 18 Jan 2025 10:56:53 +0800</lastBuildDate><atom:link href="https://hashcode17.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>学习笔记</title>
+        <link>https://hashcode17.github.io/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
+        <pubDate>Sat, 18 Jan 2025 10:56:53 +0800</pubDate>
+        
+        <guid>https://hashcode17.github.io/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
+        <description></description>
+        </item>
+        
     </channel>
 </rss>

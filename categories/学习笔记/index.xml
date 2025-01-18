@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>Hayasa17的博客</title>
-        <link>https://hashcode17.github.io/</link>
-        <description>Recent content on Hayasa17的博客</description>
+        <title>学习笔记 on Hayasa17的博客</title>
+        <link>https://hashcode17.github.io/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
+        <description>Recent content in 学习笔记 on Hayasa17的博客</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>hayasa17</copyright>
-        <lastBuildDate>Sat, 18 Jan 2025 10:56:53 +0800</lastBuildDate><atom:link href="https://hashcode17.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 18 Jan 2025 10:56:53 +0800</lastBuildDate><atom:link href="https://hashcode17.github.io/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>计算机系统原理</title>
         <link>https://hashcode17.github.io/p/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/</link>
         <pubDate>Sat, 18 Jan 2025 10:56:53 +0800</pubDate>
@@ -1130,16 +1130,6 @@ $$&lt;p&gt;
 &lt;/h4&gt;&lt;p&gt;现有的计算机，指令线性排布，按序执行指令&lt;/p&gt;
 &lt;h4 id=&#34;非确定性图灵机&#34;&gt;非确定性图灵机
 &lt;/h4&gt;&lt;p&gt;可以任意选择下一步指令是什么，会自动选择最靠近solution的分支&lt;/p&gt;
-</description>
-        </item>
-        <item>
-        <title>About</title>
-        <link>https://hashcode17.github.io/p/about/</link>
-        <pubDate>Sat, 02 Nov 2024 14:54:08 +0800</pubDate>
-        
-        <guid>https://hashcode17.github.io/p/about/</guid>
-        <description>&lt;p&gt;浙江大学2023届软件工程在读&lt;/p&gt;
-&lt;p&gt;ACM略有成绩&lt;/p&gt;
 </description>
         </item>
         

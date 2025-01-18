@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>笔记 on Hayasa17的博客</title>
+        <link>http://localhost:1313/tags/%E7%AC%94%E8%AE%B0/</link>
+        <description>Recent content in 笔记 on Hayasa17的博客</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>hayasa17</copyright>
+        <lastBuildDate>Wed, 13 Nov 2024 12:33:30 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>高级数据结构与算法分析</title>
+        <link>http://localhost:1313/p/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/</link>
+        <pubDate>Wed, 13 Nov 2024 12:33:30 +0800</pubDate>
+        
+        <guid>http://localhost:1313/p/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/</guid>
+        <description>&lt;p&gt;鉴于期中考试的严重失利，本人痛定思痛，决定开始撰写这篇笔记，旨在事无巨细的记录下 ads 课程中 ppt 中的细节，以便备考.&lt;/p&gt;
+&lt;h2 id=&#34;balanced-tree--search-tree&#34;&gt;Balanced Tree &amp;amp; Search Tree
+&lt;/h2&gt;&lt;p&gt;先明确几个概念&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;高度：空树的高度被视作１&lt;/li&gt;
+&lt;li&gt;平衡：左右子树的高度差不超过１&lt;/li&gt;
+&lt;li&gt;旋转：分为左旋和右旋，详情见图&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;avl-tree&#34;&gt;AVL Tree
+&lt;/h3&gt;&lt;p&gt;这是最早接触的平衡树，要求绝对的平衡．&lt;/p&gt;
+&lt;h4 id=&#34;rotation&#34;&gt;rotation
+&lt;/h4&gt;&lt;p&gt;每次加入或删除节点后通过旋转来保持平衡．旋转种类分为LR,LL,RL,RR&lt;/p&gt;
+&lt;p&gt;简而言之，就是将不平衡的节点需要旋转的部分，先旋转为一条直链，再进行旋转，若一开始便为直链则不需要．&lt;/p&gt;
+&lt;h4 id=&#34;复杂度&#34;&gt;复杂度
+&lt;/h4&gt;&lt;p&gt;单次时间复杂度严格$O(log n)$&lt;/p&gt;
+&lt;h3 id=&#34;splay-tree&#34;&gt;Splay Tree
+&lt;/h3&gt;&lt;p&gt;每次操作都会将访问的节点旋转至根节点，称为access.&lt;/p&gt;
+&lt;h4 id=&#34;基本操作&#34;&gt;基本操作
+&lt;/h4&gt;&lt;p&gt;核心操作:access&lt;/p&gt;
+&lt;p&gt;旋转操作分为两种，zigzig 和 zigzag&lt;/p&gt;
+&lt;p&gt;zigzag 与 AVL Tree中的旋转相同，处理折链情况．&lt;/p&gt;
+&lt;p&gt;zigzig 如图:
+&lt;img src=&#34;https://s2.loli.net/2024/12/25/t7rhsiedG8TQacX.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;wechat_2024-12-25_104741_971.png&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;特别的．如果当先 access 的节点已经为 root 的儿子，则简简单单的将其转到 root 上&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Insert: 直接在二叉搜索树上寻找到位置插入，并且 access&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Merge: 要求其中一个树的最小值大于另一棵树的最大值,access 小树的最大值，将大树接在小树的右儿子上&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Delete: access 所删节点,　删去根节点，然后 Merge 左右子树
+PS: Merge 同样可以 access 大树的最小值，但是与 ppt 不同&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;复杂度-1&#34;&gt;复杂度
+&lt;/h4&gt;&lt;p&gt;均摊时间复杂度$O(log n)$，也就是说 m 次连续操作时间复杂度$O(m log n)$&lt;/p&gt;
+&lt;h4 id=&#34;重要原句&#34;&gt;重要原句
+&lt;/h4&gt;&lt;p&gt;worst-case bound $\ge$ amortized bound $\ge$ average-case bound&lt;/p&gt;
+&lt;p&gt;Splaying not only moves the accessed node to the root, but also roughly halves the depth of most nodes on the path.&lt;/p&gt;
+&lt;h3 id=&#34;analysis&#34;&gt;Analysis
+&lt;/h3&gt;&lt;h4 id=&#34;amortized-analysis&#34;&gt;Amortized Analysis
+&lt;/h4&gt;&lt;p&gt;势能分析法&lt;/p&gt;
+&lt;p&gt;splay 的复杂度分析：TBD&lt;/p&gt;
+&lt;h4 id=&#34;aggregate-analysis&#34;&gt;Aggregate analysis
+&lt;/h4&gt;&lt;h4 id=&#34;accounting-method&#34;&gt;Accounting method
+&lt;/h4&gt;&lt;h3 id=&#34;reb-black-tree&#34;&gt;Reb-black Tree
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;节点为红色或黑色&lt;/li&gt;
+&lt;li&gt;根节点为黑色&lt;/li&gt;
+&lt;li&gt;NIL为黑色&lt;/li&gt;
+&lt;li&gt;红节点的儿子都为黑色&lt;/li&gt;
+&lt;li&gt;bh(black height)相同&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;insert&#34;&gt;Insert
+&lt;/h4&gt;&lt;p&gt;插入的节点默认为红色节点，会在后续操作中重新染色
+具体case看ppt&lt;/p&gt;
+&lt;h4 id=&#34;delete&#34;&gt;delete
+&lt;/h4&gt;&lt;p&gt;删除操作可以通过一些操作进行简化，删除后还需要进行重新染色保证性质５&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;若删除的为叶子节点，则直接删除&lt;/li&gt;
+&lt;li&gt;若删除的节点度数为１，则用其孩子代替他&lt;/li&gt;
+&lt;li&gt;若删除的节点度数为２，则先将其与其前驱或后继替换（仅交换数值），再进行删除
+具体case看ppt&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;重要结论&#34;&gt;重要结论
+&lt;/h4&gt;&lt;p&gt;有n个内部节点的红黑树深度最多为$2ln(n+1)$&lt;/p&gt;
+&lt;p&gt;证明：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;$sizeof(x) &amp;gt;= 2^{bh(x)}-1$,可用归纳法证明&lt;/li&gt;
+&lt;li&gt;$bh(tree)&amp;gt;=h(tree)/2$,可用反证法证明&lt;/li&gt;
+&lt;li&gt;结合以上两点可以证明&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;旋转次数&lt;/th&gt;
+          &lt;th&gt;AVL&lt;/th&gt;
+          &lt;th&gt;RBTree&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Insertion&lt;/td&gt;
+          &lt;td&gt;$&amp;lt;=2$&lt;/td&gt;
+          &lt;td&gt;$&amp;lt;=2$&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Deletion&lt;/td&gt;
+          &lt;td&gt;$O(log n)$&lt;/td&gt;
+          &lt;td&gt;$&amp;lt;=3$&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;红黑树的recolor次数仍是$O(log n)$&lt;/p&gt;
+&lt;h3 id=&#34;b-tree&#34;&gt;B+ Tree
+&lt;/h3&gt;&lt;p&gt;B+树实际上是一个特殊的多叉搜索树&lt;/p&gt;
+&lt;p&gt;B+树有一个关键参数M，当M为4时成为2-3-4树，当M为3时成为2-3树&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;根节点是一个叶子或有２~M个儿子&lt;/li&gt;
+&lt;li&gt;非叶子节点（除了根）有$\lceil M/2 \rceil$ ~ M 儿子&lt;/li&gt;
+&lt;li&gt;所有叶子深度相同&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;特别的:The best choice of M is 3 or 4.&lt;/p&gt;
+&lt;p&gt;图例最为直观&lt;/p&gt;
+&lt;h4 id=&#34;insertion&#34;&gt;Insertion
+&lt;/h4&gt;&lt;p&gt;按照搜索树的性质找到插入的节点进行插入，若插入后导致该节点内的数据过多时，则将该节点分裂为$\lceil (M+1)/2 \rceil$ 和$\lfloor (M+1)/2 \rfloor$两个节点，同时更新父亲的索引值，类似操作递归至根节点．&lt;/p&gt;
+&lt;p&gt;PS:分裂的两个节点顺序要与文中相同&lt;/p&gt;
+&lt;h4 id=&#34;deletion&#34;&gt;Deletion
+&lt;/h4&gt;&lt;p&gt;类似Insertion的逆操作，当儿子删得仅剩一个时要删除父节点．&lt;/p&gt;
+&lt;p&gt;ppt中没有过多描述．&lt;/p&gt;
+&lt;h2 id=&#34;inverted-file-index&#34;&gt;Inverted File Index
+&lt;/h2&gt;&lt;p&gt;正常来讲，文章中包含了一个个单词.
+所谓Inverted File Index，Inverted体现在于在单词为索引的Index中存下了文章．&lt;/p&gt;
+&lt;p&gt;具体而言就是记录下每个单词出现在文章的位置&lt;/p&gt;
+&lt;h3 id=&#34;术语&#34;&gt;术语
+&lt;/h3&gt;&lt;p&gt;该知识点比较简单，下面仅列举一些术语:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Word Stemming: 词干提取，提取出单词的词根&lt;/li&gt;
+&lt;li&gt;Stop Words: 忽略一些常用无实意词如a,the,it&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;&lt;/th&gt;
+          &lt;th&gt;Relevant&lt;/th&gt;
+          &lt;th&gt;Irrelevant&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Retrieved&lt;/td&gt;
+          &lt;td&gt;$R_R$&lt;/td&gt;
+          &lt;td&gt;$I_R$&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Not Retrieved&lt;/td&gt;
+          &lt;td&gt;$R_N$&lt;/td&gt;
+          &lt;td&gt;$I_N$&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Precision P = $R_R /(R_R +I_R)$
+用来衡量查询结果是否准确&lt;/p&gt;
+&lt;p&gt;Recall R=$R_R /(R_R+R_n)$
+用来衡量查询结果是否充分&lt;/p&gt;
+&lt;h3 id=&#34;可能重要的原句&#34;&gt;可能重要的原句：
+&lt;/h3&gt;&lt;p&gt;Most gaps can be encoded with far fewer than 20 bits.&lt;/p&gt;
+&lt;p&gt;Gap 指的是在存储Inverted File Index时，存储一个term的列表是选择存储其差分列表的列表内最大值．&lt;/p&gt;
+&lt;h2 id=&#34;heap&#34;&gt;Heap
+&lt;/h2&gt;&lt;p&gt;以下的Heap都是以Merge操作为核心的Heap&lt;/p&gt;
+&lt;h3 id=&#34;leftist-heap&#34;&gt;Leftist Heap
+&lt;/h3&gt;&lt;p&gt;NPL: 即NULL Path Length，即到自己一个非满儿子的后代的距离&lt;/p&gt;
+&lt;p&gt;左偏堆，顾名思义向左倾斜的堆，实际上为左边的NPL更大的堆&lt;/p&gt;
+&lt;h4 id=&#34;性质&#34;&gt;性质
+&lt;/h4&gt;&lt;p&gt;A leftist tree with r nodes on the right path must have at least $2^r-1$ nodes.&lt;/p&gt;
+&lt;p&gt;比较生动的理解就是，把深度大于$r$的节点全部砍掉，剩下的会是一颗满二叉树.
+这点由NPL的定义很好推出.&lt;/p&gt;
+&lt;h4 id=&#34;基本操作-1&#34;&gt;基本操作
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;Merge: 抽象来说，将rightpath上的边全部剪断，将所得森林重新排序构成rightpat，重构的过程实际上是一个归并的过程，而且rightpath长度不超过 $log n$,所以复杂度为$O(log n)$. 之后重新对rightpath上的点进行NPL要求的维护.&lt;/li&gt;
+&lt;li&gt;Insert: 仅有root的LeftistHeap的Merge&lt;/li&gt;
+&lt;li&gt;Delete Min: 删去根节点后，Merge根节点的左右儿子&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;综上所有操作为$O(logn)$&lt;/p&gt;
+&lt;h3 id=&#34;skew-heap&#34;&gt;Skew Heap
+&lt;/h3&gt;&lt;p&gt;Leftist Heap和Skew Heap的关系类似于AVL Tree 和 Splay Tree 的关系&lt;/p&gt;
+&lt;p&gt;正如Splay相较于AVL没有，Skew Heap橡胶Leftist Heap 没有NPL的概念&lt;/p&gt;
+&lt;h4 id=&#34;基本操作-2&#34;&gt;基本操作
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;Merge: 类似于Leftist，但是没有对NPL的维护，而是在每次重构时都交换左右儿子&lt;/li&gt;
+&lt;li&gt;Insert: 仅有root的SkewHeap的Merge&lt;/li&gt;
+&lt;li&gt;Delete Min: 删去根节点后，Merge根节点的左右儿子&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;均摊$O(logn)$&lt;/p&gt;
+&lt;h3 id=&#34;binomial-tree&#34;&gt;Binomial Tree
+&lt;/h3&gt;&lt;p&gt;理论上不应该将其放在Heap这一栏中，n但是实际上他实现的功能与Heap无异&lt;/p&gt;
+&lt;p&gt;由于binomial tree的儿子数量不确定，我们采用树的二度化来表示binomial tree上的node&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c++&#34; data-lang=&#34;c++&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;BinNode&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;n&#34;&gt;ElementType&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Element&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;n&#34;&gt;Position&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;LeftChiled&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;n&#34;&gt;Position&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;NextSibling&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;注意到merge两颗Binomial Tree时，按照T1,T2,Carry的顺序进行Merge,merge的结果作为当前位的Carry&lt;/p&gt;
+&lt;p&gt;Binomial Tree的下标即可代表当天Binomial Tree的大小
+第d层节点的个数为 $\binom{k}{d}$,其中k为binomial tree 的高度加盟，&lt;/p&gt;
+&lt;h4 id=&#34;复杂度-2&#34;&gt;复杂度
+&lt;/h4&gt;&lt;p&gt;向空的binomial queue插入元素至有n个元素的复杂度为$O(logn)$&lt;/p&gt;
+&lt;h2 id=&#34;backtracking&#34;&gt;Backtracking
+&lt;/h2&gt;&lt;p&gt;即搜索回溯,具体流程大概如下:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;void dfs(int now)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  if now == end
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    update ans
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    return
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  for p in possible statu for now
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    if legal
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      status[now]=p 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      dfs(now+1)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      clear status[now]
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  return 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;八皇后问题eight-queen&#34;&gt;八皇后问题(Eight Queen)
+&lt;/h3&gt;&lt;p&gt;寻找将 8 个皇后放到$8 \times 8$ 的棋盘上，且皇后之间不能相互攻击。&lt;/p&gt;
+&lt;p&gt;皇后的攻击方式遵从国际象棋规则，即横竖斜。&lt;/p&gt;
+&lt;h3 id=&#34;收费站重建问题the-turnpike-reconstruction-problem&#34;&gt;收费站重建问题(The Turnpike Reconstruction Problem)
+&lt;/h3&gt;&lt;p&gt;假设有 n 个点，已知两两点对距离构成的multiset，求 n 个点的具体分布。&lt;/p&gt;
+&lt;p&gt;PPT中提供了一个比较有趣（优秀而）的搜索方式，从两端开始确定答案,大致思路如伪代码：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;先假设X[1]=0,X[n]=D_max
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;bool reconstruct(X,D,N,left,right)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  //X存储答案，D存储点对距离的集合，N为总点数
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  //left和right表示中间尚未确认答案的点的左右边界
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  //此时的D_max一定为X[left]-X[1] 或 X[n]-X[right] 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  check both situation
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    update D
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    reconstruct(X,D,N,new_left,new_right)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    backtrack D
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  return
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;井字棋tic-tac-toe&#34;&gt;井字棋(Tic-tac-toe)
+&lt;/h3&gt;&lt;p&gt;规则不必多言&lt;/p&gt;
+&lt;p&gt;比较核心的部分在于加入了启发式的思想
+定义一个状态的“goodness”：&lt;/p&gt;
+$$ f(p) = W_{computer}- W_{Human} $$&lt;p&gt;$W_{player}$为player还有几种可能的方式获胜,但是此处仅考虑能画出几条同色的三连格&lt;/p&gt;
+&lt;p&gt;但是这个启发函数的正确性还不太明白&lt;/p&gt;
+&lt;p&gt;建立在该启发函数的基础上，该问题就变成了一个minimax问题，引出下面的$\alpha - \beta     pruning$&lt;/p&gt;
+&lt;h3 id=&#34;alpha---beta-----pruning&#34;&gt;$\alpha - \beta     pruning$
+&lt;/h3&gt;&lt;p&gt;讲解起来很抽象，于是。。。&lt;/p&gt;
+&lt;p&gt;when both techniques are combined.  In practice, it limits the searching to only $O(\sqrt{n})$ nodes, where N is the size of the full game tree.//简直是魔法&lt;/p&gt;
+&lt;h2 id=&#34;divide-and-conquer&#34;&gt;Divide and Conquer
+&lt;/h2&gt;&lt;p&gt;分为Divide,Conquer,Combine三个步骤&lt;/p&gt;
+&lt;p&gt;时间复杂度可以表示为$T(N) = aT(N/b)+f(N)$&lt;/p&gt;
+&lt;h3 id=&#34;closest-points-problem&#34;&gt;Closest Points Problem
+&lt;/h3&gt;&lt;p&gt;给定n个节点,寻找距离最近的点对&lt;/p&gt;
+&lt;p&gt;首先有一个非常朴素的想法：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Divide:每次将总点集分成两份&lt;/li&gt;
+&lt;li&gt;Conquer:求出两个子集内部的答案&lt;/li&gt;
+&lt;li&gt;Combine:考虑跨越两个子集的答案&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;先将所有的点按照y排序&lt;/p&gt;
+&lt;p&gt;Divide时按照x将点分成两个集合&lt;/p&gt;
+&lt;p&gt;我们可以取出距x分割线距离小于当前ans的点，因为这些点才可能更新ans&lt;/p&gt;
+&lt;p&gt;以下为核心Combine的代码:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;for ( i = 0; i &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;NumPointsInStrip&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;++&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;na&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;(&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;j &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;j&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;NumPointsInStrip&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;++&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;)&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;na&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;(&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;Dist_y&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;(&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;Pi&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;Pj&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt; ans)break;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        else  if ( Dist( Pi , Pj ) &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;ans&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;         &lt;span class=&#34;na&#34;&gt;ans&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;Dist(&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;Pi&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;Pj&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这份代码的正确性无需多言
+其时间复杂度$O(n)$,所以总时间复杂度为$O(nlogn)$&lt;/p&gt;
+&lt;h3 id=&#34;master-method&#34;&gt;Master method
+&lt;/h3&gt;$$ T(N) = 
+\begin{cases} 
+\Theta(N^{log_b a}) &amp; \text{if } f(N)=O(N^{log_b {a-\epsilon}}) \\
+\Theta(N^{log_b a}log N) &amp; \text{if } f(N)=\Theta(N^{log_b {a}}) \\
+\Theta(f(N)) &amp; \text{if }  f(N)=\Omega(N^{log_b{a+\epsilon}}) , af(N/b) &lt; cf(N) \\
+\end{cases}
+$$&lt;p&gt;
+对于n比较小时，默认$T(n) = \Theta(1)$&lt;/p&gt;
+&lt;h2 id=&#34;dynamic-programming&#34;&gt;Dynamic Programming
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;Fibonacci Numbers&lt;/li&gt;
+&lt;li&gt;Ordering Matrix Multiplications&lt;/li&gt;
+&lt;li&gt;Optimal Binary Search Tree&lt;/li&gt;
+&lt;li&gt;All-Pairs Shortest Path(floyd)&lt;/li&gt;
+&lt;li&gt;Product Assembly&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;greedy&#34;&gt;Greedy
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;feasible solution&lt;/li&gt;
+&lt;li&gt;optimal solution&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;note&#34;&gt;Note
+&lt;/h3&gt;&lt;p&gt;Greedy algorithm works only if the local optimum is equal to the global optimum.&lt;/p&gt;
+&lt;h3 id=&#34;activity-selection-problem&#34;&gt;Activity Selection Problem
+&lt;/h3&gt;&lt;p&gt;每个活动有开始和结束时间，在不让活动冲突的情况下最多安排多少活动.&lt;/p&gt;
+&lt;h3 id=&#34;huffman-codes&#34;&gt;Huffman Codes
+&lt;/h3&gt;&lt;h2 id=&#34;np-completeness&#34;&gt;NP-Completeness
+&lt;/h2&gt;&lt;h3 id=&#34;概念&#34;&gt;概念
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;P:多项式可求解&lt;/li&gt;
+&lt;li&gt;NP:多项式可验证&lt;/li&gt;
+&lt;li&gt;NP-complete:所有NP问题都可以规约到的NP问题，换言之，能多项式解NPC就可以多项式解所有NP&lt;/li&gt;
+&lt;li&gt;NP-hard:所有NP问题都可以规约到的问题，但不一定是NP问题&lt;/li&gt;
+&lt;li&gt;Halting Problem:无法找到一个程序能够检测无尽循环&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;常见问题&#34;&gt;常见问题
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;欧拉路径(便历每条边路径恰一次):P&lt;/li&gt;
+&lt;li&gt;汉密尔顿回路(便历每个点的简单环):NP&lt;/li&gt;
+&lt;li&gt;单点源无权最短路:P&lt;/li&gt;
+&lt;li&gt;单点源无权最长路:NP&lt;/li&gt;
+&lt;li&gt;邮递员问题:NP&lt;/li&gt;
+&lt;li&gt;SAT:NPC&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;turing-machine&#34;&gt;Turing Machine
+&lt;/h3&gt;&lt;p&gt;拥有无限的memory和有限的状态控制器(可类比为CPU核心)&lt;/p&gt;
+&lt;h4 id=&#34;确定性图灵机&#34;&gt;确定性图灵机
+&lt;/h4&gt;&lt;p&gt;现有的计算机，指令线性排布，按序执行指令&lt;/p&gt;
+&lt;h4 id=&#34;非确定性图灵机&#34;&gt;非确定性图灵机
+&lt;/h4&gt;&lt;p&gt;可以任意选择下一步指令是什么，会自动选择最靠近solution的分支&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>
