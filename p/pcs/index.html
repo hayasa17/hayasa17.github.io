@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Chapter 1\r公式 Cost per die = Cost per wafer / (Dies per wafer × Yield) Dies per wafer ≈ Wafer area / Die area Yield = 1 / (1 + (Defects per area × Die area / 2))^2} 前两个公式比较好理解，第三个不需要理解 Performance depends on\nAlgorithm: affects IC, possibly CPI Programming language: affects IC, CPI Compiler : affects IC, CPI Instruction set architecture: affects IC, CPI, Tc In CMOS IC technology\n">
+<title>PCS</title>
+
+<link rel='canonical' href='http://localhost:1313/p/pcs/'>
+
+<link rel="stylesheet" href="/scss/style.min.b9c8156d464c343bdacaf14a871581fb94cbbdb9dd5cbce4ba017361187cc930.css"><meta property='og:title' content="PCS">
+<meta property='og:description' content="Chapter 1\r公式 Cost per die = Cost per wafer / (Dies per wafer × Yield) Dies per wafer ≈ Wafer area / Die area Yield = 1 / (1 + (Defects per area × Die area / 2))^2} 前两个公式比较好理解，第三个不需要理解 Performance depends on\nAlgorithm: affects IC, possibly CPI Programming language: affects IC, CPI Compiler : affects IC, CPI Instruction set architecture: affects IC, CPI, Tc In CMOS IC technology\n">
+<meta property='og:url' content='http://localhost:1313/p/pcs/'>
+<meta property='og:site_name' content='Hayasa17的博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-01-18T10:56:53&#43;08:00'/><meta property='article:modified_time' content='2025-01-18T10:56:53&#43;08:00'/>
+<meta name="twitter:title" content="PCS">
+<meta name="twitter:description" content="Chapter 1\r公式 Cost per die = Cost per wafer / (Dies per wafer × Yield) Dies per wafer ≈ Wafer area / Die area Yield = 1 / (1 + (Defects per area × Die area / 2))^2} 前两个公式比较好理解，第三个不需要理解 Performance depends on\nAlgorithm: affects IC, possibly CPI Programming language: affects IC, CPI Compiler : affects IC, CPI Instruction set architecture: affects IC, CPI, Tc In CMOS IC technology\n">
+    <link rel="shortcut icon" href="/letter-h.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu9640898709382361218.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🍥</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Hayasa17的博客</a></h1>
+            <h2 class="site-description">ZJUer&amp;ACMer</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://space.bilibili.com/518428007'
+                        target="_blank"
+                        title="Bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1730542336261" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="18894" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24"><path d="M306.005333 117.632L444.330667 256h135.296l138.368-138.325333a42.666667 42.666667 0 0 1 60.373333 60.373333L700.330667 256H789.333333A149.333333 149.333333 0 0 1 938.666667 405.333333v341.333334a149.333333 149.333333 0 0 1-149.333334 149.333333h-554.666666A149.333333 149.333333 0 0 1 85.333333 746.666667v-341.333334A149.333333 149.333333 0 0 1 234.666667 256h88.96L245.632 177.962667a42.666667 42.666667 0 0 1 60.373333-60.373334zM789.333333 341.333333h-554.666666a64 64 0 0 0-63.701334 57.856L170.666667 405.333333v341.333334a64 64 0 0 0 57.856 63.701333L234.666667 810.666667h554.666666a64 64 0 0 0 63.701334-57.856L853.333333 746.666667v-341.333334A64 64 0 0 0 789.333333 341.333333zM341.333333 469.333333a42.666667 42.666667 0 0 1 42.666667 42.666667v85.333333a42.666667 42.666667 0 0 1-85.333333 0v-85.333333a42.666667 42.666667 0 0 1 42.666666-42.666667z m341.333334 0a42.666667 42.666667 0 0 1 42.666666 42.666667v85.333333a42.666667 42.666667 0 0 1-85.333333 0v-85.333333a42.666667 42.666667 0 0 1 42.666667-42.666667z" p-id="18895" fill="#2c3e50"></path></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/hayasa17'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1730543687318" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="20264" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24"><path d="M695.744 981.312H419.712c-26.816 0-47.296-21.056-47.296-48.64V739.84c0-29.184 6.336-56.768 17.344-81.088-129.28-48.64-214.528-150.72-214.528-264.256 0-53.44 17.344-103.68 50.496-147.52C213.12 204.8 209.92 151.296 213.12 89.664c3.2-27.52 23.68-46.976 48.896-46.976 14.208 0 134.08 1.6 203.52 64.832a504.384 504.384 0 0 1 184.512 0C717.888 44.288 837.696 42.688 853.504 42.688a47.36 47.36 0 0 1 47.36 45.376c4.672 61.568 0 115.072-12.672 157.248 33.152 45.44 50.496 95.68 50.496 147.52 0 113.472-85.184 215.68-214.528 264.32 11.072 25.856 17.344 53.44 17.344 81.024v192.896c1.6 27.52-20.48 50.24-45.76 50.24z m-228.672-97.28h181.376V739.84c0-27.52-12.608-53.504-33.152-71.36a48.96 48.96 0 0 1-15.744-50.24c4.736-17.856 18.944-32.384 36.288-35.648 123.008-24.32 208.192-102.144 208.192-189.696 0-46.976-25.216-82.688-45.76-105.344a47.36 47.36 0 0 1-7.872-55.168c6.336-12.928 15.808-40.512 15.808-89.152-39.488 6.464-85.184 19.456-102.528 45.44a47.552 47.552 0 0 1-50.56 19.392 393.024 393.024 0 0 0-193.92 0c-18.944 4.864-37.888-3.2-50.56-19.456-17.28-25.92-63.04-38.912-102.464-45.376 1.6 48.64 9.472 76.16 15.744 89.152a53.696 53.696 0 0 1-7.872 55.168c-20.48 22.656-45.76 58.368-45.76 105.344 0 87.552 85.184 163.776 208.256 189.696 17.28 3.2 31.552 17.792 36.224 35.648a51.008 51.008 0 0 1-15.744 50.24c-20.48 17.856-33.152 43.776-33.152 71.36v144.256h3.2z" fill="#172B4D" p-id="20265"></path><path d="M403.968 788.416c-212.928 0-309.12-194.56-313.92-202.688-11.008-24.32-1.536-53.44 20.48-64.832a47.424 47.424 0 0 1 63.168 21.12c3.136 6.4 80.448 157.248 241.28 149.12a46.08 46.08 0 0 1 48.896 47.04c1.6 27.52-18.88 50.24-45.696 50.24h-14.208z" fill="#172B4D" p-id="20266"></path></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com/hayasa17_lin'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1730543940814" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="31339" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24"><path d="M806.4 51.2h157.866667l-341.333334 392.533333L1024 972.8h-315.733333l-247.466667-324.266667-281.6 324.266667H21.333333L388.266667 554.666667 0 51.2h324.266667l221.866666 294.4 260.266667-294.4z m-55.466667 827.733333h85.333334L277.333333 136.533333H183.466667l567.466666 742.4z" fill="#231815" p-id="31340"></path></svg>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' target="_blank">
+                
+                
+                
+                    <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1730546635175" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5534" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24"><path d="M7.8 438.6c-9.8-13.4-6.8-32.2 6.6-41.9l452.1-334 0.3-0.2c32.5-22.5 75.9-22.1 108 0.8l0.6 0.4L1012 396.6c13.2 10 15.9 28.8 6 42-10 13.2-28.8 15.9-42 6L539.6 111.9c-11.5-8.1-26.8-8.2-38.4-0.3L49.7 445.2c-13.4 9.7-32.2 6.8-41.9-6.6zM874.3 977.1H593.1l-0.3-171.2c-0.1-43.5-35.5-78.8-79-78.8s-78.9 35.4-79 78.8l-0.3 171.2H151.2c-45.8 0-83.2-37.3-83.4-83.1l-1.1-346.8c-0.1-16.6 13.3-30 29.9-30.1 16.6-0.1 30 13.3 30.1 29.9l1.1 346.8c0 12.9 10.5 23.3 23.4 23.3h223.4l0.2-111.3c0.1-76.5 62.5-138.7 139-138.7s138.8 62.2 139 138.7l0.2 111.3h221.3c12.9 0 23.4-10.5 23.4-23.4L898 547c0-16.6 13.5-30 30-30 16.6 0 30 13.5 30 30l-0.3 346.7c-0.1 46-37.5 83.4-83.4 83.4z" p-id="5535"></path></svg>
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/' target="_blank">
+                
+                
+                
+                    <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1730546435575" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4483" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24"><path d="M512 1024C229.376 1024 0 794.624 0 512S229.376 0 512 0s512 229.376 512 512-229.376 512-512 512z m0-949.248C271.36 74.752 75.776 271.36 75.776 512S271.36 949.248 512 949.248 949.248 752.64 949.248 512 752.64 74.752 512 74.752z m0 753.664a45.44 45.44 0 0 1-45.056-45.056V444.416c0-25.6 20.48-45.056 45.056-45.056s45.056 19.456 45.056 45.056V783.36A45.44 45.44 0 0 1 512 828.416z m0-474.112c-24.576 0-45.056-20.48-45.056-46.08V240.64c0-24.576 20.48-45.056 45.056-45.056s45.056 20.48 45.056 45.056v67.584c0 25.6-20.48 46.08-45.056 46.08z" p-id="4484"></path></svg>
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/' target="_blank">
+                
+                
+                
+                    <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1730546696762" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8295" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24"><path d="M810.666667 213.333333v426.666667H384V213.333333h426.666667m85.333333-85.333333H298.666667v597.333333h597.333333V128z m-170.666667 170.666667H469.333333v85.333333h256z m0 170.666666H469.333333v85.333334h256zM213.333333 810.666667V213.333333H128v682.666667h682.666667v-85.333333z" p-id="8296"></path></svg>
+                
+                <span>Archive</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="http://localhost:1313/en/" >English</option>
+                                
+                                    <option value="http://localhost:1313/" selected>中文</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#design-principle">Design Principle</a></li>
+    <li><a href="#register">Register</a></li>
+    <li><a href="#instruction">Instruction</a>
+      <ol>
+        <li><a href="#r-type">R-type</a></li>
+        <li><a href="#i-type">I-type</a></li>
+        <li><a href="#j-type">J-type</a></li>
+      </ol>
+    </li>
+    <li><a href="#endian">Endian</a></li>
+    <li><a href="#program-------">Program &mdash;&mdash;</a>
+      <ol>
+        <li><a href="#from-hll">From HLL</a></li>
+        <li><a href="#produce-a-object-module">Produce a Object Module</a></li>
+        <li><a href="#link-object-modules">Link Object Modules</a></li>
+        <li><a href="#load-a-program">Load a Program</a></li>
+      </ol>
+    </li>
+    <li><a href="#杂项">杂项</a>
+      <ol>
+        <li><a href="#32位常数">32位常数</a></li>
+        <li><a href="#同步">同步</a></li>
+      </ol>
+    </li>
+    <li><a href="#总结">总结</a></li>
+  </ol>
+
+  <ol>
+    <li><a href="#adder">Adder</a>
+      <ol>
+        <li><a href="#cla">CLA</a></li>
+      </ol>
+    </li>
+    <li><a href="#multiplication">Multiplication</a>
+      <ol>
+        <li><a href="#流水线">流水线</a></li>
+        <li><a href="#阵列-乘法器">阵列 乘法器</a></li>
+        <li><a href="#instruction-1">Instruction</a></li>
+      </ol>
+    </li>
+    <li><a href="#division">Division</a></li>
+    <li><a href="#浮点数">浮点数</a>
+      <ol>
+        <li>
+          <ol>
+            <li><a href="#表示方式">表示方式</a></li>
+          </ol>
+        </li>
+        <li><a href="#加法">加法</a>
+          <ol>
+            <li><a href="#浮点数加法流程">浮点数加法流程</a></li>
+            <li><a href="#浮点数加法硬件">浮点数加法硬件</a></li>
+          </ol>
+        </li>
+        <li><a href="#乘法">乘法</a>
+          <ol>
+            <li><a href="#乘法流程">乘法流程</a></li>
+          </ol>
+        </li>
+        <li><a href="#instruction-2">Instruction</a>
+          <ol>
+            <li><a href="#一些奇形怪状的case">一些奇形怪状的Case</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+  </ol>
+
+  <ol>
+    <li><a href="#cpu基本架构">CPU基本架构</a></li>
+    <li><a href="#pipeline">Pipeline</a>
+      <ol>
+        <li><a href="#stall-the-pipeline">Stall the Pipeline</a></li>
+      </ol>
+    </li>
+    <li><a href="#hazards">Hazards</a>
+      <ol>
+        <li><a href="#structure-hazards">Structure hazards</a></li>
+        <li><a href="#data-hazard">Data hazard</a>
+          <ol>
+            <li><a href="#detection">Detection</a></li>
+            <li><a href="#solutionforwarding">Solution：Forwarding</a></li>
+            <li><a href="#load-use-hazard-detection">Load-Use Hazard Detection</a></li>
+          </ol>
+        </li>
+        <li><a href="#control-hazard">Control hazard:</a>
+          <ol>
+            <li><a href="#solution">Solution:</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#exceptions-and-interrupts">Exceptions and Interrupts</a>
+      <ol>
+        <li><a href="#handling">Handling</a></li>
+      </ol>
+    </li>
+    <li><a href="#static-multiple-issue">Static Multiple Issue</a>
+      <ol>
+        <li><a href="#static-dual-issue">Static Dual Issue</a></li>
+      </ol>
+    </li>
+  </ol>
+
+  <ol>
+    <li><a href="#principle-of-locality">Principle of Locality</a></li>
+    <li><a href="#结构">结构</a></li>
+    <li><a href="#disk-磁盘">Disk 磁盘</a></li>
+    <li><a href="#cache">Cache</a>
+      <ol>
+        <li><a href="#direct-map">Direct Map</a></li>
+        <li><a href="#n-associative-caches">n-Associative Caches</a></li>
+        <li><a href="#cache和memory的通信">Cache和Memory的通信</a>
+          <ol>
+            <li><a href="#write-through">Write-Through</a></li>
+            <li><a href="#write-back">Write-Back</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#hamming-code">Hamming Code</a>
+      <ol>
+        <li><a href="#hamming-distance">Hamming distance</a></li>
+        <li><a href="#sec">SEC</a></li>
+        <li><a href="#secded">SEC/DED</a></li>
+      </ol>
+    </li>
+    <li><a href="#virtual-machine">virtual machine</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/pcs/">PCS</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jan 18, 2025</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 8 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="chapter-1">Chapter 1
+</h1><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>公式</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Cost per die = Cost per wafer / (Dies per wafer × Yield)</td>
+      </tr>
+      <tr>
+          <td>Dies per wafer ≈ Wafer area / Die area</td>
+      </tr>
+      <tr>
+          <td>Yield = 1 / (1 + (Defects per area × Die area / 2))^2}</td>
+      </tr>
+      <tr>
+          <td>前两个公式比较好理解，第三个不需要理解</td>
+      </tr>
+  </tbody>
+</table></div>
+<p>Performance depends on</p>
+<ul>
+<li>Algorithm: affects IC, possibly CPI</li>
+<li>Programming language: affects IC, CPI</li>
+<li>Compiler  : affects IC, CPI</li>
+<li>Instruction set architecture: affects IC, CPI, Tc</li>
+</ul>
+<p>In CMOS IC technology</p>
+<ul>
+<li>$Power = Capacitive load \times Voltage^2 \times Frequency$</li>
+</ul>
+<h1 id="chapter-2-指令">Chapter 2 指令
+</h1><h2 id="design-principle">Design Principle
+</h2><ul>
+<li>Simplicity favors regularity</li>
+<li>Smaller is faster</li>
+<li>Make the common case fast</li>
+<li>Good design demands good compromises</li>
+</ul>
+<h2 id="register">Register
+</h2><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>Name</th>
+          <th>Register number</th>
+          <th>Usage</th>
+          <th></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>$zero</td>
+          <td>0</td>
+          <td>the constant value 0</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>$at</td>
+          <td>1</td>
+          <td>Reserve for assembler</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>$v0-$v1</td>
+          <td>2-3</td>
+          <td>values for results and expression evaluation</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>$a0-$a3</td>
+          <td>4-7</td>
+          <td>arguments</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>$t0-$t7</td>
+          <td>8-15</td>
+          <td>temporaries</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>$s0-$s7</td>
+          <td>16-23</td>
+          <td>saved</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>$t8-$t9</td>
+          <td>24-25</td>
+          <td>more temporaries</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>$k0-$k1</td>
+          <td>26-27</td>
+          <td>Reserve for Operating</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>$gp</td>
+          <td>28</td>
+          <td>global pointer</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>$sp</td>
+          <td>29</td>
+          <td>stack pointer</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>$fp</td>
+          <td>30</td>
+          <td>frame pointer</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>$ra</td>
+          <td>31</td>
+          <td>return address</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>基本可以通过首字母推测寄存器含义</td>
+          <td></td>
+          <td></td>
+          <td></td>
+      </tr>
+  </tbody>
+</table></div>
+<h2 id="instruction">Instruction
+</h2><h3 id="r-type">R-type
+</h3><p>R-type 的 R 可以理解为register, 即指令的每一个参数都是register
+<img src="https://s2.loli.net/2024/12/20/TtKdYk46uVMRI5s.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="RtypeInstruction.png"
+	
+	
+>
+以上为R-type指令的格式，大致可以观察到两个特征：</p>
+<ul>
+<li>与汇编不同，指令的destination在最后</li>
+<li>op 永远为 000000，具体功能通过func来区分</li>
+</ul>
+<h3 id="i-type">I-type
+</h3><p>I-type 的 I 可以理解为instant，即指令中存在人工输入的常数
+<img src="https://s2.loli.net/2024/12/20/qVjAxWz1pEJMGTK.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image.png"
+	
+	
+></p>
+<ul>
+<li>与R-type同样，destination在后</li>
+<li>在addi类似指令中 offset表示部分就是常数</li>
+<li>All opcodes except 000000, 00001x, and 0100xx are used for I type instructions.</li>
+</ul>
+<h3 id="j-type">J-type
+</h3><p><img src="https://s2.loli.net/2024/12/20/2X5UNYj1dF8ymig.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image.png"
+	
+	
+>
+具体执行为  PC = ((PC+4) &amp; 0xF000_0000) | (label &laquo; 2)
+所以可以理解J指令为绝对跳转，但branch系列指令为相对跳转</p>
+<ul>
+<li>J type instructions use opcodes 00001</li>
+<li>注意jr不是J-type指令，是R指令</li>
+</ul>
+<h2 id="endian">Endian
+</h2><p><img src="https://s2.loli.net/2024/12/20/gtukWdIQXez5x34.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="Endian.jpg"
+	
+	
+>
+图片生动诠释了大小端存储的概念，其中MIPS采用big-endian</p>
+<h2 id="program-------">Program &mdash;&mdash;
+</h2><h3 id="from-hll">From HLL
+</h3><p><img src="https://s2.loli.net/2024/12/22/dXCWF7s9hBVYxj5.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image.png"
+	
+	
+></p>
+<h3 id="produce-a-object-module">Produce a Object Module
+</h3><p>Assembler (or compiler) translates program into machine instructions
+Provides information for building a complete program from the pieces</p>
+<ul>
+<li>Header : described contents of object module</li>
+<li>Text segment : translated instructions</li>
+<li>Static data segment : data allocated for the life of the program</li>
+<li>Relocation info : for contents that depend on absolute location of loaded program</li>
+<li>Symbol table : global definitions and external refs</li>
+<li>Debug info : for associating with source code</li>
+</ul>
+<h3 id="link-object-modules">Link Object Modules
+</h3><p>Produces an executable image</p>
+<ul>
+<li>
+<ol>
+<li>Merges segments</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>Resolve labels (determine their addresses)</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>Patch location dependent and external refs
+Could leave location dependencies for fixing by a relocating loader</li>
+</ol>
+</li>
+<li>But with virtual memory, no need to do this</li>
+<li>Program can be loaded into absolute location
+in virtual memory space</li>
+</ul>
+<h3 id="load-a-program">Load a Program
+</h3><p>Load from image file on disk into memory</p>
+<ul>
+<li>
+<ol>
+<li>Read header to determine segment sizes</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>Create virtual address space</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>Copy text and initialized data into memory</li>
+</ol>
+<ul>
+<li>Or set page table entries so they can be faulted in</li>
+</ul>
+</li>
+<li>
+<ol start="4">
+<li>Set up arguments on stack</li>
+</ol>
+</li>
+<li>
+<ol start="5">
+<li>Initialize registers (including $sp, $fp, $gp)</li>
+</ol>
+</li>
+<li>
+<ol start="6">
+<li>Jump to startup routine</li>
+</ol>
+<ul>
+<li>Copies arguments to $a0, &hellip; and calls main</li>
+<li>When main returns, do exit syscall</li>
+</ul>
+</li>
+</ul>
+<h2 id="杂项">杂项
+</h2><h3 id="32位常数">32位常数
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">lui</span> <span class="o">$</span><span class="n">t0</span><span class="p">,</span> <span class="mi">1</span><span class="o">//</span> <span class="nb">load</span> <span class="n">upper</span> <span class="n">instant</span>
+</span></span><span class="line"><span class="cl"><span class="n">ori</span> <span class="o">$</span><span class="n">t0</span><span class="p">,</span> <span class="mi">1</span><span class="o">//</span> <span class="ow">or</span> <span class="n">instant</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>先通过 lui 给 $t0 的高16位赋值，后用 ori 附低16位</p>
+<h3 id="同步">同步
+</h3><p>Atomic-operation</p>
+<ul>
+<li>ll rt, offset(rs)</li>
+<li>sc rt, offset(rs)
+<ul>
+<li>Succeeds if location not changed since the ll</li>
+<li>Fails if location is changed</li>
+<li>return 0/1 in rt</li>
+</ul>
+</li>
+</ul>
+<h2 id="总结">总结
+</h2><ul>
+<li>Instruction count and CPI are not good performance indicators in isolation</li>
+<li>Compiler optimizations are sensitive to the algorithm</li>
+</ul>
+<h1 id="chapter-3-算术运算">Chapter 3 算术运算
+</h1><h2 id="adder">Adder
+</h2><p><img src="https://s2.loli.net/2024/12/22/OwSKnihukBgDc5C.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image.png"
+	
+	
+>
+Adder基础单元如上图所示，其中与门和或门视作 1 个延迟，异或门视作 3 个延迟</p>
+<p>普通的行波加法器原理简单不予展示</p>
+<h3 id="cla">CLA
+</h3><p>定义辅助函数:</p>
+<ul>
+<li>$G_i = A_i B_i$</li>
+<li>$P_i = A_i +B_i$
+则有$F_i = A_i⊕  B_i ⊕ C_i , C_{i+1} = G_i + P_iC_i$
+仅仅会加快进位的计算，下为电路图
+<img src="https://s2.loli.net/2024/12/22/hW4wnuMKBXRDmQ8.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image.png"
+	
+	
+>
+不难发现随着位数增大，电路规模迅速增大，故一般通过多个小规模的CLA用行波加法器的组装方式连接成一个加法器，以达到电路规模和延迟的折中方案</li>
+<li>无符号操作产生溢出时不报异常，但是有符号操作报异常</li>
+</ul>
+<h2 id="multiplication">Multiplication
+</h2><p>乘法器实际上就是通过加法+左移的操作，模拟竖式计算
+朴素乘法器的流程图也省略了</p>
+<h3 id="流水线">流水线
+</h3><p><img src="https://s2.loli.net/2024/12/22/SPR96OsrAThLFZ4.jpg"
+	
+	
+	
+	loading="lazy"
+	
+		alt="a9de2bb442296a8456451cb17a91c623.jpg"
+	
+	
+>
+实际上就是在将每一次的加法和左移流程用更多硬件实现，但是在乘法操作多时，每一个加法器同时可以计算不同乘法操作的结果，类似于流水线，故称之为流水，通过简单的优化可以变成下图形式。
+<img src="https://s2.loli.net/2024/12/22/pw5PDFXzxolT2J7.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image.png"
+	
+	
+>
+这样减少了单个乘法操作的延迟</p>
+<h3 id="阵列-乘法器">阵列 乘法器
+</h3><p><img src="https://s2.loli.net/2024/12/22/k5GPxzoDEuJcXTd.jpg"
+	
+	
+	
+	loading="lazy"
+	
+		alt="395fad38a4bfb113e58ecbd43ac774a8.jpg"
+	
+	
+>
+流水线可以理解为通过流水线优化了竖式乘法中各个数相加的过程，阵列乘法器可以理解为更加细化，优化了竖式乘法中每一位相加的情况。</p>
+<h3 id="instruction-1">Instruction
+</h3><ul>
+<li>mult rs, rt / multu rs, rt
+64 bit product in HI/LO</li>
+<li>mfhi rd / mflo rd
+Move from HI/LO to rd
+Can test HI value to see if product overflows 32 bits</li>
+<li>mul rd, rs, rt
+Least significant 32 bits of product -&gt; rd</li>
+</ul>
+<h2 id="division">Division
+</h2><p>同样是模拟竖式
+<img src="https://s2.loli.net/2024/12/22/ogb6E1VnxyCLpIz.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image.png"
+	
+	
+></p>
+<ul>
+<li>div rs, rt / divu rs, rt
+64 bit product in HI/LO</li>
+<li>mfhi rd / mflo rd
+HI: 32-bit remainder
+LO: 32-bit quotient
+Move from HI/LO to rd
+无溢出和除0检测
+非0余数符号与被除数相同，以此可以倒推商的符号</li>
+</ul>
+<h2 id="浮点数">浮点数
+</h2><h4 id="表示方式">表示方式
+</h4><p><img src="https://s2.loli.net/2024/12/22/ekm8OvrCpqfDTBE.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image.png"
+	
+	
+>
+Single Bias = 127;Double Bias = 1023
+一张图简洁明了,俗话说的科学计数法
+特别的,上述等式中fraction实际上是 $0.\overline{fraction}$ 的值</p>
+<p>Exponents 00000000 and 11111111 reserved，也就是所谓的inf和nan.</p>
+<h3 id="加法">加法
+</h3><h4 id="浮点数加法流程">浮点数加法流程
+</h4><ul>
+<li>
+<ol>
+<li>向较小的数对齐指数</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>将基数相加</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>标准化所得数</li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li>若需要 则四舍五入</li>
+</ol>
+</li>
+</ul>
+<h4 id="浮点数加法硬件">浮点数加法硬件
+</h4><p><img src="https://s2.loli.net/2024/12/22/Ohki4MZYeIGgFLr.jpg"
+	
+	
+	
+	loading="lazy"
+	
+		alt="e438207717c7a3b8bedfe69809c96948.jpg"
+	
+	
+></p>
+<h3 id="乘法">乘法
+</h3><h4 id="乘法流程">乘法流程
+</h4><ul>
+<li>
+<ol>
+<li>相加指数, 减去bias</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>基数相乘</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>标准化所得数</li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li>若需要 则四舍五入</li>
+</ol>
+</li>
+<li>
+<ol start="5">
+<li>确定符号
+其硬件类似于FP Adder 但是在上图中ALU部分采用乘法</li>
+</ol>
+</li>
+</ul>
+<h3 id="instruction-2">Instruction
+</h3><p>FP操作都在一个协处理器上，有独立的硬件(运算器和寄存器)
+<code>$f0</code>来表示单精度浮点数，<code>$f0/$f1</code>表示双精度浮点数
+lwc1 , swc1对应lw和sw，调用方式相同
+add.s,sub.s,mul.s,div.s为单精度操作，调用方式全部类似于add，后缀由s改为d则为双精度操作
+c.xx.s , c.xx.d (xx is eq , neq, lt , le , gt, ge)，调用方式类似整数操作，但是比较结果放在FP condition code中(注意与frame pointer区分)
+bc1t , bc1f 分别为FP condition code为true/false时的branch指令</p>
+<h4 id="一些奇形怪状的case">一些奇形怪状的Case
+</h4><p><img src="https://s2.loli.net/2024/12/22/Cs93iTw4L7gOjqZ.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image.png"
+	
+	
+></p>
+<h1 id="chapter-4-处理器-重量级">Chapter 4 处理器 (重量级
+</h1><p>$$ Cycle Time = Latch Prop + Longest Delay Path + Setup +</p>
+<p>Clock Skew$$</p>
+<h2 id="cpu基本架构">CPU基本架构
+</h2><p><img src="https://s2.loli.net/2024/12/22/a6LUlFxwMoWBOeV.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image.png"
+	
+	
+></p>
+<h2 id="pipeline">Pipeline
+</h2><p>将一个指令的执行划分为5阶段</p>
+<ul>
+<li>
+<ol>
+<li>IF : Instruction fetch from memory</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>ID : Instruction decode &amp; register read （ MIPS 的指令格式允许同时进行指令译码和读寄存器）</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>EX : Execute operation or calculate address</li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li>MEM : Access memory operand</li>
+</ol>
+</li>
+<li>
+<ol start="5">
+<li>WB : Write result back to register
+<img src="https://s2.loli.net/2024/12/23/4kpbOljcx3PetLK.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image.png"
+	
+	
+>
+为使每个指令的每个阶段可以独立运行，每个阶段都有着独立的寄存器来存储所需数据。
+指令在刚进入执行阶段时会将所有信息都记录在Pipeline的寄存器中，随着一个个阶段进行，没用的数据不会被下一阶段寄存器继承，新产生的数据会被继承</li>
+</ol>
+</li>
+</ul>
+<h3 id="stall-the-pipeline">Stall the Pipeline
+</h3><ul>
+<li>Force control values in ID/EX register to</li>
+<li>Prevent update of PC and IF/ID register</li>
+</ul>
+<h2 id="hazards">Hazards
+</h2><h3 id="structure-hazards">Structure hazards
+</h3><p>a required resource is busy</p>
+<h3 id="data-hazard">Data hazard
+</h3><p>need to wait for previous instruction to complete its data read/write</p>
+<h4 id="detection">Detection
+</h4><p>首先要求所需寄存器非0</p>
+<ul>
+<li>1a. EX/MEM.RegisterRd = ID/EX.RegisterRs</li>
+<li>1b. EX/MEM.RegisterRd = ID/EX.RegisterRt</li>
+<li>2a. MEM/WB.RegisterRd = ID/EX.RegisterRs</li>
+<li>2b. MEM/WB.RegisterRd = ID/EX.RegisterRt</li>
+</ul>
+<h4 id="solutionforwarding">Solution：Forwarding
+</h4><p>简单来说就是直接利用一些先前ALU操作后的、存在pipeline寄存器中的值
+<img src="https://s2.loli.net/2024/12/23/FVvXBJp4836mkSQ.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image.png"
+	
+	
+>
+对于forward condition:
+ForwardA/B代表ALU的第一/二个操作数的forward情况
+Forward=00/10/01分别表示 无forward/时间差为1/时间差为2</p>
+<ul>
+<li>尽可能使用最新的数据，这会导致2a和2b的检测复杂一些</li>
+</ul>
+<h4 id="load-use-hazard-detection">Load-Use Hazard Detection
+</h4><p>特定发生在lw指令后，情况如图
+<img src="https://s2.loli.net/2024/12/23/cNUPhZ58qVDmn1X.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image.png"
+	
+	
+>
+此时必须等待上个指令读取memory结束才可以执行下一跳指令
+对应的detection为
+ID/EX.MemRead and ((ID/EX.RegisterRt = IF/ID.RegisterRs) or (ID/EX.RegisterRt = IF/ID.RegisterRt))</p>
+<h3 id="control-hazard">Control hazard:
+</h3><p>deciding on control action depends on previous instruction
+简单来说就是用流水线时不好处理分支情况</p>
+<h4 id="solution">Solution:
+</h4><ul>
+<li>把与分支指令无关的指令调到分支指令后执行</li>
+<li>dynamic prediction（一些奇怪的分支预测策略</li>
+</ul>
+<h2 id="exceptions-and-interrupts">Exceptions and Interrupts
+</h2><ul>
+<li>Exceptions: 异常，一般为代码运行错误，比如未定义指令，溢出等</li>
+<li>Interrupt: 中断，需要调用I/O控制器</li>
+</ul>
+<h3 id="handling">Handling
+</h3><ul>
+<li>In MIPS, exceptions managed by a System Control Coprocessor (CP)</li>
+<li>Save PC of offending (or interrupted) instruction</li>
+<li>In MIPS: Exception Program Counter (EPC)</li>
+<li>Save indication of the problem</li>
+<li>In MIPS: Cause register</li>
+<li>Jump to handler at 8000 00180
+handle过程实际上可以理解为一中branch操作</li>
+</ul>
+<h2 id="static-multiple-issue">Static Multiple Issue
+</h2><p>在不冲突使用硬件资源的情况下同时运行多个指令
+将多个指令视作一个超长指令
+当然需要多个数据管道</p>
+<h3 id="static-dual-issue">Static Dual Issue
+</h3><p>ALU/branch, then load/store为一种可行的打包方式</p>
+<h1 id="chapter-5">Chapter 5
+</h1><h2 id="principle-of-locality">Principle of Locality
+</h2><ul>
+<li>Temporal locality
+<ul>
+<li>E.g.循环变量</li>
+</ul>
+</li>
+<li>Spatial locality
+<ul>
+<li>E.g.数组</li>
+</ul>
+</li>
+</ul>
+<h2 id="结构">结构
+</h2><p>Register -&gt; Cache(SRAM) -&gt; Memory(DRAM) -&gt; Disk
+成本越来越低，速度越来越慢</p>
+<h2 id="disk-磁盘">Disk 磁盘
+</h2><p>磁盘又多磁道构成，每个磁道分为多个扇区，一个扇区一般为4K大小，磁盘数据的传输最小单位为扇区</p>
+<p>Disk的寻址时间分为</p>
+<ul>
+<li>seek time 可以理解为磁针移动到相应磁道的时间</li>
+<li>rotation latency 磁盘旋转使得对应扇区在磁针下方的时间，期望转半圈</li>
+<li>transfer delay 数据传输时间</li>
+<li>control delay</li>
+</ul>
+<h2 id="cache">Cache
+</h2><h3 id="direct-map">Direct Map
+</h3><p>最先接触到的最简单的Cache
+首先，cache中也有地址，我们可以称之为index
+由于spatial locality,在将数据复制到cache中时将目标附近的数据也复制到cache,也就是数据为一块一块的转移的，我们称为block，一块块的相对地址称为offset
+Cache的每个block中存有三个数据</p>
+<ul>
+<li>V, 该block是否存有数据</li>
+<li>tag, 后续在讲</li>
+<li>Data, 存储的数据
+$\overline{tag+index+offset}$即为cache中该数据对应的memory中的数据地址</li>
+</ul>
+<h3 id="n-associative-caches">n-Associative Caches
+</h3><p>DirectMap的寻址方式非常简单，但是可能会导致cache利用率的降低，于是考虑一种更灵活的存放方式。</p>
+<p>对于n-Associative Caches，memory中一个地址的数据可能存在cache的n个地方，取用时对这n个地方全部并行的比较以下即可
+显然这种分区方式会将cache分成很多set,每个set有n个entries，可以通过</p>
+<ul>
+<li>(Block number) modulo (#Sets in cache)
+来确定block处于那个set中</li>
+</ul>
+<p>特别的， n=cache size时，可以成为fully associative caches</p>
+<p>显然，若该n个地方存在空位时，新数据直接写入空位即可，但是若该n个地方全满时，常用Least-recently used策略来替换其中一个数据</p>
+<h3 id="cache和memory的通信">Cache和Memory的通信
+</h3><p>由Memory写至Cache的过程源自于CPU对数据的需要，所以该操作的优先级会短暂提至最高，但反之就不必加急处理，所以具体处理方式就有了很多灵活性</p>
+<h4 id="write-through">Write-Through
+</h4><p>每次修改Cache上的数据都会同步到memory上，写穿
+但是显然这样Cache的写入操作就落回了memory级别
+为此，可以加入一个write buffer,在数据总线空闲时会自动把buffer里的数据写到memory中
+显然，当buffer满时还是会退化，但是已经优化了许多</p>
+<h4 id="write-back">Write-Back
+</h4><p>仅仅在cache的数据要被移除时写回memory
+已被修改但尚未写回的block称为dirty block
+同样可以使用write buffer进行优化</p>
+<h2 id="hamming-code">Hamming Code
+</h2><h3 id="hamming-distance">Hamming distance
+</h3><ul>
+<li>不同的数据间至少有几位不同</li>
+</ul>
+<h3 id="sec">SEC
+</h3><p>Single Error Correct
+<img src="https://s2.loli.net/2024/12/24/Uc54oyQ7Tf2wN1K.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image.png"
+	
+	
+>
+其中标蓝的为检验位，白色的为原数据，X表示对应检验的位数
+该检验码默认传输过程中最多错误一位
+比如12位错误时，p4和p8两位都会检验失败，从而可以计算出12位传输错误，就可以对12位的数据进行修正
+校验码的位数至少要满足$2^p \ge p+d+1$</p>
+<h3 id="secded">SEC/DED
+</h3><p>SEC+double error detect
+默认传输过程中最多错两位
+新加入一位 检验所有位</p>
+<ul>
+<li>若所有检验位正常，则数据无错</li>
+<li>若SEC检验位正常，DED检验位错误，不存在这种情况</li>
+<li>若SEC检验位不正常，DED检验位正常，SEC检验位错误</li>
+<li>若SEC检验位不正常，DED检验位错误，说明错了一位，可修复</li>
+</ul>
+<h2 id="virtual-machine">virtual machine
+</h2><p>与cache和memory的关系极为相似
+将page理解为block即可丝滑过渡</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2024 - 
+        
+        2025 hayasa17
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.ea4c6c4bede441aa42cc0ebe50b98cdee20f2e1f8b704d7441b2e0f86e505b79.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

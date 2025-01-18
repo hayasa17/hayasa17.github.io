@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="鉴于期中考试的严重失利，本人痛定思痛，决定开始撰写这篇笔记，旨在事无巨细的记录下 ads 课程中 ppt 中的细节，以便备考.\nBalanced Tree &amp; Search Tree\r先明确几个概念\n高度：空树的高度被视作１ 平衡：左右子树的高度差不超过１ 旋转：分为左旋和右旋，详情见图 AVL Tree\r这是最早接触的平衡树，要求绝对的平衡．\n">
+<title>Ads Notebook</title>
+
+<link rel='canonical' href='http://localhost:1313/p/ads-notebook/'>
+
+<link rel="stylesheet" href="/scss/style.min.b9c8156d464c343bdacaf14a871581fb94cbbdb9dd5cbce4ba017361187cc930.css"><meta property='og:title' content="Ads Notebook">
+<meta property='og:description' content="鉴于期中考试的严重失利，本人痛定思痛，决定开始撰写这篇笔记，旨在事无巨细的记录下 ads 课程中 ppt 中的细节，以便备考.\nBalanced Tree &amp; Search Tree\r先明确几个概念\n高度：空树的高度被视作１ 平衡：左右子树的高度差不超过１ 旋转：分为左旋和右旋，详情见图 AVL Tree\r这是最早接触的平衡树，要求绝对的平衡．\n">
+<meta property='og:url' content='http://localhost:1313/p/ads-notebook/'>
+<meta property='og:site_name' content='Hayasa17的博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2024-11-13T12:33:30&#43;08:00'/><meta property='article:modified_time' content='2024-11-13T12:33:30&#43;08:00'/>
+<meta name="twitter:title" content="Ads Notebook">
+<meta name="twitter:description" content="鉴于期中考试的严重失利，本人痛定思痛，决定开始撰写这篇笔记，旨在事无巨细的记录下 ads 课程中 ppt 中的细节，以便备考.\nBalanced Tree &amp; Search Tree\r先明确几个概念\n高度：空树的高度被视作１ 平衡：左右子树的高度差不超过１ 旋转：分为左旋和右旋，详情见图 AVL Tree\r这是最早接触的平衡树，要求绝对的平衡．\n">
+    <link rel="shortcut icon" href="/letter-h.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu9640898709382361218.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🍥</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Hayasa17的博客</a></h1>
+            <h2 class="site-description">ZJUer&amp;ACMer</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://space.bilibili.com/518428007'
+                        target="_blank"
+                        title="Bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1730542336261" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="18894" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24"><path d="M306.005333 117.632L444.330667 256h135.296l138.368-138.325333a42.666667 42.666667 0 0 1 60.373333 60.373333L700.330667 256H789.333333A149.333333 149.333333 0 0 1 938.666667 405.333333v341.333334a149.333333 149.333333 0 0 1-149.333334 149.333333h-554.666666A149.333333 149.333333 0 0 1 85.333333 746.666667v-341.333334A149.333333 149.333333 0 0 1 234.666667 256h88.96L245.632 177.962667a42.666667 42.666667 0 0 1 60.373333-60.373334zM789.333333 341.333333h-554.666666a64 64 0 0 0-63.701334 57.856L170.666667 405.333333v341.333334a64 64 0 0 0 57.856 63.701333L234.666667 810.666667h554.666666a64 64 0 0 0 63.701334-57.856L853.333333 746.666667v-341.333334A64 64 0 0 0 789.333333 341.333333zM341.333333 469.333333a42.666667 42.666667 0 0 1 42.666667 42.666667v85.333333a42.666667 42.666667 0 0 1-85.333333 0v-85.333333a42.666667 42.666667 0 0 1 42.666666-42.666667z m341.333334 0a42.666667 42.666667 0 0 1 42.666666 42.666667v85.333333a42.666667 42.666667 0 0 1-85.333333 0v-85.333333a42.666667 42.666667 0 0 1 42.666667-42.666667z" p-id="18895" fill="#2c3e50"></path></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/hayasa17'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1730543687318" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="20264" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24"><path d="M695.744 981.312H419.712c-26.816 0-47.296-21.056-47.296-48.64V739.84c0-29.184 6.336-56.768 17.344-81.088-129.28-48.64-214.528-150.72-214.528-264.256 0-53.44 17.344-103.68 50.496-147.52C213.12 204.8 209.92 151.296 213.12 89.664c3.2-27.52 23.68-46.976 48.896-46.976 14.208 0 134.08 1.6 203.52 64.832a504.384 504.384 0 0 1 184.512 0C717.888 44.288 837.696 42.688 853.504 42.688a47.36 47.36 0 0 1 47.36 45.376c4.672 61.568 0 115.072-12.672 157.248 33.152 45.44 50.496 95.68 50.496 147.52 0 113.472-85.184 215.68-214.528 264.32 11.072 25.856 17.344 53.44 17.344 81.024v192.896c1.6 27.52-20.48 50.24-45.76 50.24z m-228.672-97.28h181.376V739.84c0-27.52-12.608-53.504-33.152-71.36a48.96 48.96 0 0 1-15.744-50.24c4.736-17.856 18.944-32.384 36.288-35.648 123.008-24.32 208.192-102.144 208.192-189.696 0-46.976-25.216-82.688-45.76-105.344a47.36 47.36 0 0 1-7.872-55.168c6.336-12.928 15.808-40.512 15.808-89.152-39.488 6.464-85.184 19.456-102.528 45.44a47.552 47.552 0 0 1-50.56 19.392 393.024 393.024 0 0 0-193.92 0c-18.944 4.864-37.888-3.2-50.56-19.456-17.28-25.92-63.04-38.912-102.464-45.376 1.6 48.64 9.472 76.16 15.744 89.152a53.696 53.696 0 0 1-7.872 55.168c-20.48 22.656-45.76 58.368-45.76 105.344 0 87.552 85.184 163.776 208.256 189.696 17.28 3.2 31.552 17.792 36.224 35.648a51.008 51.008 0 0 1-15.744 50.24c-20.48 17.856-33.152 43.776-33.152 71.36v144.256h3.2z" fill="#172B4D" p-id="20265"></path><path d="M403.968 788.416c-212.928 0-309.12-194.56-313.92-202.688-11.008-24.32-1.536-53.44 20.48-64.832a47.424 47.424 0 0 1 63.168 21.12c3.136 6.4 80.448 157.248 241.28 149.12a46.08 46.08 0 0 1 48.896 47.04c1.6 27.52-18.88 50.24-45.696 50.24h-14.208z" fill="#172B4D" p-id="20266"></path></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com/hayasa17_lin'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1730543940814" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="31339" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24"><path d="M806.4 51.2h157.866667l-341.333334 392.533333L1024 972.8h-315.733333l-247.466667-324.266667-281.6 324.266667H21.333333L388.266667 554.666667 0 51.2h324.266667l221.866666 294.4 260.266667-294.4z m-55.466667 827.733333h85.333334L277.333333 136.533333H183.466667l567.466666 742.4z" fill="#231815" p-id="31340"></path></svg>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' target="_blank">
+                
+                
+                
+                    <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1730546635175" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5534" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24"><path d="M7.8 438.6c-9.8-13.4-6.8-32.2 6.6-41.9l452.1-334 0.3-0.2c32.5-22.5 75.9-22.1 108 0.8l0.6 0.4L1012 396.6c13.2 10 15.9 28.8 6 42-10 13.2-28.8 15.9-42 6L539.6 111.9c-11.5-8.1-26.8-8.2-38.4-0.3L49.7 445.2c-13.4 9.7-32.2 6.8-41.9-6.6zM874.3 977.1H593.1l-0.3-171.2c-0.1-43.5-35.5-78.8-79-78.8s-78.9 35.4-79 78.8l-0.3 171.2H151.2c-45.8 0-83.2-37.3-83.4-83.1l-1.1-346.8c-0.1-16.6 13.3-30 29.9-30.1 16.6-0.1 30 13.3 30.1 29.9l1.1 346.8c0 12.9 10.5 23.3 23.4 23.3h223.4l0.2-111.3c0.1-76.5 62.5-138.7 139-138.7s138.8 62.2 139 138.7l0.2 111.3h221.3c12.9 0 23.4-10.5 23.4-23.4L898 547c0-16.6 13.5-30 30-30 16.6 0 30 13.5 30 30l-0.3 346.7c-0.1 46-37.5 83.4-83.4 83.4z" p-id="5535"></path></svg>
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/' target="_blank">
+                
+                
+                
+                    <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1730546435575" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4483" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24"><path d="M512 1024C229.376 1024 0 794.624 0 512S229.376 0 512 0s512 229.376 512 512-229.376 512-512 512z m0-949.248C271.36 74.752 75.776 271.36 75.776 512S271.36 949.248 512 949.248 949.248 752.64 949.248 512 752.64 74.752 512 74.752z m0 753.664a45.44 45.44 0 0 1-45.056-45.056V444.416c0-25.6 20.48-45.056 45.056-45.056s45.056 19.456 45.056 45.056V783.36A45.44 45.44 0 0 1 512 828.416z m0-474.112c-24.576 0-45.056-20.48-45.056-46.08V240.64c0-24.576 20.48-45.056 45.056-45.056s45.056 20.48 45.056 45.056v67.584c0 25.6-20.48 46.08-45.056 46.08z" p-id="4484"></path></svg>
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/' target="_blank">
+                
+                
+                
+                    <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1730546696762" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8295" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24"><path d="M810.666667 213.333333v426.666667H384V213.333333h426.666667m85.333333-85.333333H298.666667v597.333333h597.333333V128z m-170.666667 170.666667H469.333333v85.333333h256z m0 170.666666H469.333333v85.333334h256zM213.333333 810.666667V213.333333H128v682.666667h682.666667v-85.333333z" p-id="8296"></path></svg>
+                
+                <span>Archive</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="http://localhost:1313/en/" >English</option>
+                                
+                                    <option value="http://localhost:1313/" selected>中文</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#balanced-tree--search-tree">Balanced Tree &amp; Search Tree</a>
+      <ol>
+        <li><a href="#avl-tree">AVL Tree</a>
+          <ol>
+            <li><a href="#rotation">rotation</a></li>
+            <li><a href="#复杂度">复杂度</a></li>
+          </ol>
+        </li>
+        <li><a href="#splay-tree">Splay Tree</a>
+          <ol>
+            <li><a href="#基本操作">基本操作</a></li>
+            <li><a href="#复杂度-1">复杂度</a></li>
+            <li><a href="#重要原句">重要原句</a></li>
+          </ol>
+        </li>
+        <li><a href="#analysis">Analysis</a>
+          <ol>
+            <li><a href="#amortized-analysis">Amortized Analysis</a></li>
+            <li><a href="#aggregate-analysis">Aggregate analysis</a></li>
+            <li><a href="#accounting-method">Accounting method</a></li>
+          </ol>
+        </li>
+        <li><a href="#reb-black-tree">Reb-black Tree</a>
+          <ol>
+            <li><a href="#insert">Insert</a></li>
+            <li><a href="#delete">delete</a></li>
+            <li><a href="#重要结论">重要结论</a></li>
+          </ol>
+        </li>
+        <li><a href="#b-tree">B+ Tree</a>
+          <ol>
+            <li><a href="#insertion">Insertion</a></li>
+            <li><a href="#deletion">Deletion</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#inverted-file-index">Inverted File Index</a>
+      <ol>
+        <li><a href="#术语">术语</a></li>
+        <li><a href="#可能重要的原句">可能重要的原句：</a></li>
+      </ol>
+    </li>
+    <li><a href="#heap">Heap</a>
+      <ol>
+        <li><a href="#leftist-heap">Leftist Heap</a>
+          <ol>
+            <li><a href="#性质">性质</a></li>
+            <li><a href="#基本操作-1">基本操作</a></li>
+          </ol>
+        </li>
+        <li><a href="#skew-heap">Skew Heap</a>
+          <ol>
+            <li><a href="#基本操作-2">基本操作</a></li>
+          </ol>
+        </li>
+        <li><a href="#binomial-tree">Binomial Tree</a>
+          <ol>
+            <li><a href="#复杂度-2">复杂度</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#backtracking">Backtracking</a>
+      <ol>
+        <li><a href="#八皇后问题eight-queen">八皇后问题(Eight Queen)</a></li>
+        <li><a href="#收费站重建问题the-turnpike-reconstruction-problem">收费站重建问题(The Turnpike Reconstruction Problem)</a></li>
+        <li><a href="#井字棋tic-tac-toe">井字棋(Tic-tac-toe)</a></li>
+        <li><a href="#alpha---beta-----pruning">$\alpha - \beta     pruning$</a></li>
+      </ol>
+    </li>
+    <li><a href="#divide-and-conquer">Divide and Conquer</a>
+      <ol>
+        <li><a href="#closest-points-problem">Closest Points Problem</a></li>
+        <li><a href="#master-method">Master method</a></li>
+      </ol>
+    </li>
+    <li><a href="#dynamic-programming">Dynamic Programming</a></li>
+    <li><a href="#greedy">Greedy</a>
+      <ol>
+        <li><a href="#note">Note</a></li>
+        <li><a href="#activity-selection-problem">Activity Selection Problem</a></li>
+        <li><a href="#huffman-codes">Huffman Codes</a></li>
+      </ol>
+    </li>
+    <li><a href="#np-completeness">NP-Completeness</a>
+      <ol>
+        <li><a href="#概念">概念</a></li>
+        <li><a href="#常见问题">常见问题</a></li>
+        <li><a href="#turing-machine">Turing Machine</a>
+          <ol>
+            <li><a href="#确定性图灵机">确定性图灵机</a></li>
+            <li><a href="#非确定性图灵机">非确定性图灵机</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/ads-notebook/">Ads Notebook</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Nov 13, 2024</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 8 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>鉴于期中考试的严重失利，本人痛定思痛，决定开始撰写这篇笔记，旨在事无巨细的记录下 ads 课程中 ppt 中的细节，以便备考.</p>
+<h2 id="balanced-tree--search-tree">Balanced Tree &amp; Search Tree
+</h2><p>先明确几个概念</p>
+<ul>
+<li>高度：空树的高度被视作１</li>
+<li>平衡：左右子树的高度差不超过１</li>
+<li>旋转：分为左旋和右旋，详情见图</li>
+</ul>
+<h3 id="avl-tree">AVL Tree
+</h3><p>这是最早接触的平衡树，要求绝对的平衡．</p>
+<h4 id="rotation">rotation
+</h4><p>每次加入或删除节点后通过旋转来保持平衡．旋转种类分为LR,LL,RL,RR</p>
+<p>简而言之，就是将不平衡的节点需要旋转的部分，先旋转为一条直链，再进行旋转，若一开始便为直链则不需要．</p>
+<h4 id="复杂度">复杂度
+</h4><p>单次时间复杂度严格$O(log n)$</p>
+<h3 id="splay-tree">Splay Tree
+</h3><p>每次操作都会将访问的节点旋转至根节点，称为access.</p>
+<h4 id="基本操作">基本操作
+</h4><p>核心操作:access</p>
+<p>旋转操作分为两种，zigzig 和 zigzag</p>
+<p>zigzag 与 AVL Tree中的旋转相同，处理折链情况．</p>
+<p>zigzig 如图:
+<img src="https://s2.loli.net/2024/12/25/t7rhsiedG8TQacX.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="wechat_2024-12-25_104741_971.png"
+	
+	
+></p>
+<p>特别的．如果当先 access 的节点已经为 root 的儿子，则简简单单的将其转到 root 上</p>
+<ul>
+<li>
+<p>Insert: 直接在二叉搜索树上寻找到位置插入，并且 access</p>
+</li>
+<li>
+<p>Merge: 要求其中一个树的最小值大于另一棵树的最大值,access 小树的最大值，将大树接在小树的右儿子上</p>
+</li>
+<li>
+<p>Delete: access 所删节点,　删去根节点，然后 Merge 左右子树
+PS: Merge 同样可以 access 大树的最小值，但是与 ppt 不同</p>
+</li>
+</ul>
+<h4 id="复杂度-1">复杂度
+</h4><p>均摊时间复杂度$O(log n)$，也就是说 m 次连续操作时间复杂度$O(m log n)$</p>
+<h4 id="重要原句">重要原句
+</h4><p>worst-case bound $\ge$ amortized bound $\ge$ average-case bound</p>
+<p>Splaying not only moves the accessed node to the root, but also roughly halves the depth of most nodes on the path.</p>
+<h3 id="analysis">Analysis
+</h3><h4 id="amortized-analysis">Amortized Analysis
+</h4><p>势能分析法</p>
+<p>splay 的复杂度分析：TBD</p>
+<h4 id="aggregate-analysis">Aggregate analysis
+</h4><h4 id="accounting-method">Accounting method
+</h4><h3 id="reb-black-tree">Reb-black Tree
+</h3><ul>
+<li>节点为红色或黑色</li>
+<li>根节点为黑色</li>
+<li>NIL为黑色</li>
+<li>红节点的儿子都为黑色</li>
+<li>bh(black height)相同</li>
+</ul>
+<h4 id="insert">Insert
+</h4><p>插入的节点默认为红色节点，会在后续操作中重新染色
+具体case看ppt</p>
+<h4 id="delete">delete
+</h4><p>删除操作可以通过一些操作进行简化，删除后还需要进行重新染色保证性质５</p>
+<ul>
+<li>若删除的为叶子节点，则直接删除</li>
+<li>若删除的节点度数为１，则用其孩子代替他</li>
+<li>若删除的节点度数为２，则先将其与其前驱或后继替换（仅交换数值），再进行删除
+具体case看ppt</li>
+</ul>
+<h4 id="重要结论">重要结论
+</h4><p>有n个内部节点的红黑树深度最多为$2ln(n+1)$</p>
+<p>证明：</p>
+<ul>
+<li>$sizeof(x) &gt;= 2^{bh(x)}-1$,可用归纳法证明</li>
+<li>$bh(tree)&gt;=h(tree)/2$,可用反证法证明</li>
+<li>结合以上两点可以证明</li>
+</ul>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>旋转次数</th>
+          <th>AVL</th>
+          <th>RBTree</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Insertion</td>
+          <td>$&lt;=2$</td>
+          <td>$&lt;=2$</td>
+      </tr>
+      <tr>
+          <td>Deletion</td>
+          <td>$O(log n)$</td>
+          <td>$&lt;=3$</td>
+      </tr>
+  </tbody>
+</table></div>
+<p>红黑树的recolor次数仍是$O(log n)$</p>
+<h3 id="b-tree">B+ Tree
+</h3><p>B+树实际上是一个特殊的多叉搜索树</p>
+<p>B+树有一个关键参数M，当M为4时成为2-3-4树，当M为3时成为2-3树</p>
+<ul>
+<li>根节点是一个叶子或有２~M个儿子</li>
+<li>非叶子节点（除了根）有$\lceil M/2 \rceil$ ~ M 儿子</li>
+<li>所有叶子深度相同</li>
+</ul>
+<p>特别的:The best choice of M is 3 or 4.</p>
+<p>图例最为直观</p>
+<h4 id="insertion">Insertion
+</h4><p>按照搜索树的性质找到插入的节点进行插入，若插入后导致该节点内的数据过多时，则将该节点分裂为$\lceil (M+1)/2 \rceil$ 和$\lfloor (M+1)/2 \rfloor$两个节点，同时更新父亲的索引值，类似操作递归至根节点．</p>
+<p>PS:分裂的两个节点顺序要与文中相同</p>
+<h4 id="deletion">Deletion
+</h4><p>类似Insertion的逆操作，当儿子删得仅剩一个时要删除父节点．</p>
+<p>ppt中没有过多描述．</p>
+<h2 id="inverted-file-index">Inverted File Index
+</h2><p>正常来讲，文章中包含了一个个单词.
+所谓Inverted File Index，Inverted体现在于在单词为索引的Index中存下了文章．</p>
+<p>具体而言就是记录下每个单词出现在文章的位置</p>
+<h3 id="术语">术语
+</h3><p>该知识点比较简单，下面仅列举一些术语:</p>
+<ul>
+<li>Word Stemming: 词干提取，提取出单词的词根</li>
+<li>Stop Words: 忽略一些常用无实意词如a,the,it</li>
+</ul>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th></th>
+          <th>Relevant</th>
+          <th>Irrelevant</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Retrieved</td>
+          <td>$R_R$</td>
+          <td>$I_R$</td>
+      </tr>
+      <tr>
+          <td>Not Retrieved</td>
+          <td>$R_N$</td>
+          <td>$I_N$</td>
+      </tr>
+  </tbody>
+</table></div>
+<p>Precision P = $R_R /(R_R +I_R)$
+用来衡量查询结果是否准确</p>
+<p>Recall R=$R_R /(R_R+R_n)$
+用来衡量查询结果是否充分</p>
+<h3 id="可能重要的原句">可能重要的原句：
+</h3><p>Most gaps can be encoded with far fewer than 20 bits.</p>
+<p>Gap 指的是在存储Inverted File Index时，存储一个term的列表是选择存储其差分列表的列表内最大值．</p>
+<h2 id="heap">Heap
+</h2><p>以下的Heap都是以Merge操作为核心的Heap</p>
+<h3 id="leftist-heap">Leftist Heap
+</h3><p>NPL: 即NULL Path Length，即到自己一个非满儿子的后代的距离</p>
+<p>左偏堆，顾名思义向左倾斜的堆，实际上为左边的NPL更大的堆</p>
+<h4 id="性质">性质
+</h4><p>A leftist tree with r nodes on the right path must have at least $2^r-1$ nodes.</p>
+<p>比较生动的理解就是，把深度大于$r$的节点全部砍掉，剩下的会是一颗满二叉树.
+这点由NPL的定义很好推出.</p>
+<h4 id="基本操作-1">基本操作
+</h4><ul>
+<li>Merge: 抽象来说，将rightpath上的边全部剪断，将所得森林重新排序构成rightpat，重构的过程实际上是一个归并的过程，而且rightpath长度不超过 $log n$,所以复杂度为$O(log n)$. 之后重新对rightpath上的点进行NPL要求的维护.</li>
+<li>Insert: 仅有root的LeftistHeap的Merge</li>
+<li>Delete Min: 删去根节点后，Merge根节点的左右儿子</li>
+</ul>
+<p>综上所有操作为$O(logn)$</p>
+<h3 id="skew-heap">Skew Heap
+</h3><p>Leftist Heap和Skew Heap的关系类似于AVL Tree 和 Splay Tree 的关系</p>
+<p>正如Splay相较于AVL没有，Skew Heap橡胶Leftist Heap 没有NPL的概念</p>
+<h4 id="基本操作-2">基本操作
+</h4><ul>
+<li>Merge: 类似于Leftist，但是没有对NPL的维护，而是在每次重构时都交换左右儿子</li>
+<li>Insert: 仅有root的SkewHeap的Merge</li>
+<li>Delete Min: 删去根节点后，Merge根节点的左右儿子</li>
+</ul>
+<p>均摊$O(logn)$</p>
+<h3 id="binomial-tree">Binomial Tree
+</h3><p>理论上不应该将其放在Heap这一栏中，n但是实际上他实现的功能与Heap无异</p>
+<p>由于binomial tree的儿子数量不确定，我们采用树的二度化来表示binomial tree上的node</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">BinNode</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">ElementType</span> <span class="n">Element</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Position</span> <span class="n">LeftChiled</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Position</span> <span class="n">NextSibling</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>注意到merge两颗Binomial Tree时，按照T1,T2,Carry的顺序进行Merge,merge的结果作为当前位的Carry</p>
+<p>Binomial Tree的下标即可代表当天Binomial Tree的大小
+第d层节点的个数为 $\binom{k}{d}$,其中k为binomial tree 的高度加盟，</p>
+<h4 id="复杂度-2">复杂度
+</h4><p>向空的binomial queue插入元素至有n个元素的复杂度为$O(logn)$</p>
+<h2 id="backtracking">Backtracking
+</h2><p>即搜索回溯,具体流程大概如下:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl">void dfs(int now)
+</span></span><span class="line"><span class="cl">  if now == end
+</span></span><span class="line"><span class="cl">    update ans
+</span></span><span class="line"><span class="cl">    return
+</span></span><span class="line"><span class="cl">  for p in possible statu for now
+</span></span><span class="line"><span class="cl">    if legal
+</span></span><span class="line"><span class="cl">      status[now]=p 
+</span></span><span class="line"><span class="cl">      dfs(now+1)
+</span></span><span class="line"><span class="cl">      clear status[now]
+</span></span><span class="line"><span class="cl">  return 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="八皇后问题eight-queen">八皇后问题(Eight Queen)
+</h3><p>寻找将 8 个皇后放到$8 \times 8$ 的棋盘上，且皇后之间不能相互攻击。</p>
+<p>皇后的攻击方式遵从国际象棋规则，即横竖斜。</p>
+<h3 id="收费站重建问题the-turnpike-reconstruction-problem">收费站重建问题(The Turnpike Reconstruction Problem)
+</h3><p>假设有 n 个点，已知两两点对距离构成的multiset，求 n 个点的具体分布。</p>
+<p>PPT中提供了一个比较有趣（优秀而）的搜索方式，从两端开始确定答案,大致思路如伪代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl">先假设X[1]=0,X[n]=D_max
+</span></span><span class="line"><span class="cl">bool reconstruct(X,D,N,left,right)
+</span></span><span class="line"><span class="cl">  //X存储答案，D存储点对距离的集合，N为总点数
+</span></span><span class="line"><span class="cl">  //left和right表示中间尚未确认答案的点的左右边界
+</span></span><span class="line"><span class="cl">  //此时的D_max一定为X[left]-X[1] 或 X[n]-X[right] 
+</span></span><span class="line"><span class="cl">  check both situation
+</span></span><span class="line"><span class="cl">    update D
+</span></span><span class="line"><span class="cl">    reconstruct(X,D,N,new_left,new_right)
+</span></span><span class="line"><span class="cl">    backtrack D
+</span></span><span class="line"><span class="cl">  return
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="井字棋tic-tac-toe">井字棋(Tic-tac-toe)
+</h3><p>规则不必多言</p>
+<p>比较核心的部分在于加入了启发式的思想
+定义一个状态的“goodness”：</p>
+$$ f(p) = W_{computer}- W_{Human} $$<p>$W_{player}$为player还有几种可能的方式获胜,但是此处仅考虑能画出几条同色的三连格</p>
+<p>但是这个启发函数的正确性还不太明白</p>
+<p>建立在该启发函数的基础上，该问题就变成了一个minimax问题，引出下面的$\alpha - \beta     pruning$</p>
+<h3 id="alpha---beta-----pruning">$\alpha - \beta     pruning$
+</h3><p>讲解起来很抽象，于是。。。</p>
+<p>when both techniques are combined.  In practice, it limits the searching to only $O(\sqrt{n})$ nodes, where N is the size of the full game tree.//简直是魔法</p>
+<h2 id="divide-and-conquer">Divide and Conquer
+</h2><p>分为Divide,Conquer,Combine三个步骤</p>
+<p>时间复杂度可以表示为$T(N) = aT(N/b)+f(N)$</p>
+<h3 id="closest-points-problem">Closest Points Problem
+</h3><p>给定n个节点,寻找距离最近的点对</p>
+<p>首先有一个非常朴素的想法：</p>
+<ul>
+<li>Divide:每次将总点集分成两份</li>
+<li>Conquer:求出两个子集内部的答案</li>
+<li>Combine:考虑跨越两个子集的答案</li>
+</ul>
+<p>先将所有的点按照y排序</p>
+<p>Divide时按照x将点分成两个集合</p>
+<p>我们可以取出距x分割线距离小于当前ans的点，因为这些点才可能更新ans</p>
+<p>以下为核心Combine的代码:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">for ( i = 0; i <span class="p">&lt;</span> <span class="nt">NumPointsInStrip</span><span class="err">;</span> <span class="na">i</span><span class="err">++</span> <span class="err">)</span>
+</span></span><span class="line"><span class="cl">    <span class="na">for</span> <span class="err">(</span> <span class="na">j </span><span class="o">=</span> <span class="s">i</span> <span class="err">+</span> <span class="na">1</span><span class="err">;</span> <span class="na">j</span> <span class="err">&lt;</span> <span class="na">NumPointsInStrip</span><span class="err">;</span> <span class="na">j</span><span class="err">++</span> <span class="err">)</span> 
+</span></span><span class="line"><span class="cl">        <span class="na">if</span> <span class="err">(</span> <span class="na">Dist_y</span><span class="err">(</span> <span class="na">Pi</span> <span class="err">,</span> <span class="na">Pj</span> <span class="err">)</span> <span class="p">&gt;</span> ans)break;
+</span></span><span class="line"><span class="cl">        else  if ( Dist( Pi , Pj ) <span class="p">&lt;</span> <span class="nt">ans</span> <span class="err">)</span>
+</span></span><span class="line"><span class="cl">         <span class="na">ans</span><span class="o">=</span> <span class="s">Dist(</span> <span class="na">Pi</span> <span class="err">,</span> <span class="na">Pj</span> <span class="err">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这份代码的正确性无需多言
+其时间复杂度$O(n)$,所以总时间复杂度为$O(nlogn)$</p>
+<h3 id="master-method">Master method
+</h3>$$ T(N) = 
+\begin{cases} 
+\Theta(N^{log_b a}) & \text{if } f(N)=O(N^{log_b {a-\epsilon}}) \\
+\Theta(N^{log_b a}log N) & \text{if } f(N)=\Theta(N^{log_b {a}}) \\
+\Theta(f(N)) & \text{if }  f(N)=\Omega(N^{log_b{a+\epsilon}}) , af(N/b) < cf(N) \\
+\end{cases}
+$$<p>
+对于n比较小时，默认$T(n) = \Theta(1)$</p>
+<h2 id="dynamic-programming">Dynamic Programming
+</h2><ul>
+<li>Fibonacci Numbers</li>
+<li>Ordering Matrix Multiplications</li>
+<li>Optimal Binary Search Tree</li>
+<li>All-Pairs Shortest Path(floyd)</li>
+<li>Product Assembly</li>
+</ul>
+<h2 id="greedy">Greedy
+</h2><ul>
+<li>feasible solution</li>
+<li>optimal solution</li>
+</ul>
+<h3 id="note">Note
+</h3><p>Greedy algorithm works only if the local optimum is equal to the global optimum.</p>
+<h3 id="activity-selection-problem">Activity Selection Problem
+</h3><p>每个活动有开始和结束时间，在不让活动冲突的情况下最多安排多少活动.</p>
+<h3 id="huffman-codes">Huffman Codes
+</h3><h2 id="np-completeness">NP-Completeness
+</h2><h3 id="概念">概念
+</h3><ul>
+<li>P:多项式可求解</li>
+<li>NP:多项式可验证</li>
+<li>NP-complete:所有NP问题都可以规约到的NP问题，换言之，能多项式解NPC就可以多项式解所有NP</li>
+<li>NP-hard:所有NP问题都可以规约到的问题，但不一定是NP问题</li>
+<li>Halting Problem:无法找到一个程序能够检测无尽循环</li>
+</ul>
+<h3 id="常见问题">常见问题
+</h3><ul>
+<li>欧拉路径(便历每条边路径恰一次):P</li>
+<li>汉密尔顿回路(便历每个点的简单环):NP</li>
+<li>单点源无权最短路:P</li>
+<li>单点源无权最长路:NP</li>
+<li>邮递员问题:NP</li>
+<li>SAT:NPC</li>
+</ul>
+<h3 id="turing-machine">Turing Machine
+</h3><p>拥有无限的memory和有限的状态控制器(可类比为CPU核心)</p>
+<h4 id="确定性图灵机">确定性图灵机
+</h4><p>现有的计算机，指令线性排布，按序执行指令</p>
+<h4 id="非确定性图灵机">非确定性图灵机
+</h4><p>可以任意选择下一步指令是什么，会自动选择最靠近solution的分支</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2024 - 
+        
+        2025 hayasa17
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.ea4c6c4bede441aa42cc0ebe50b98cdee20f2e1f8b704d7441b2e0f86e505b79.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
